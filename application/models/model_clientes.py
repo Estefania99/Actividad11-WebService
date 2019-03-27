@@ -1,65 +1,60 @@
-import config as config # importa el archivo config
+import web
+import config
 
-db = config.db # crea un objeto db del objeto db creado en config
+db = config.db
 
-'''
-Metodo para seleccionar todos los registros de la tabla clientes
-'''
-def select_clientes():
+
+def get_all_clientes():
     try:
-        return db.select('clientes') # Selecciona todos los registros de la tabla clientes
+        return db.select('clientes')
     except Exception as e:
-        print "Model select_clientes Error {}".format(e.args)
-        print "Model select_clientes Message {}".format(e.message)
+        print "Model get all Error {}".format(e.args)
+        print "Model get all Message {}".format(e.message)
         return None
 
-'''
-Metodo para seleccionar un registro que coincida con el nombre dado
-'''
-def select_nombre(nombre_cliente):
+
+def get_clientes(id_cliente):
     try:
-        return db.select('clientes',where='nombre_cliente=$nombre_cliente', vars=locals())[0] # selecciona el primer registro que coincida con el nombre
+        return db.select('clientes', where='id_cliente=$id_cliente', vars=locals())[0]
     except Exception as e:
-        print "Model select_nombre Error {}".format(e.args)
-        print "Model select_nombre Message {}".format(e.message)
+        print "Model get Error {}".format(e.args)
+        print "Model get Message {}".format(e.message)
         return None
 
-'''
-Metodo para insertar un nuevo registro
-'''
-def insert_clientes(nombre_cliente,apellido_paterno,apellido_materno,telefono,email):
+
+def delete_clientes(id_cliente):
     try:
-        return db.insert('clientes', nombre_cliente=nombre_cliente,apellido_paterno=apellido_paterno,apellido_materno=apellido_materno,telefono=telefono,email=email) # inserta un registro en clientes
+        return db.delete('clientes', where='id_cliente=$id_cliente', vars=locals())
     except Exception as e:
-        print "Model insert_clientes Error {}".format(e.args)
-        print "Model insert_clientes Message {}".format(e.message)
+        print "Model delete Error {}".format(e.args)
+        print "Model delete Message {}".format(e.message)
         return None
 
-'''
-Metodo para eliminar un registro que coincida con el nombre recibido
-'''
-def delete_clientes(nombre_cliente):
+
+def insert_clientes(nombre,apellido_paterno,apellido_materno,telefono,email):
     try:
-        return db.delete('clientes', where='nombre_cliente=$nombre_cliente',vars=locals()) # borra un registro de clientes
+        return db.insert('clientes',nombre=nombre,
+apellido_paterno=apellido_paterno,
+apellido_materno=apellido_materno,
+telefono=telefono,
+email=email)
     except Exception as e:
-        print "Model delete_clientes Error {}".format(e.args)
-        print "Model delete_clientes Message {}".format(e.message)
+        print "Model insert Error {}".format(e.args)
+        print "Model insert Message {}".format(e.message)
         return None
 
-'''
-Metodo para actualizar o
-'''
-def update_clientes(nombre_cliente,apellido_paterno,apellido_materno,telefono,email): # actualiza los datos de la tabla 
-    try:
-        return db.update('clientes', 
-            apellido_paterno=apellido_paterno, 
-            apellido_materno=apellido_materno,
-            telefono=telefono,
-            email= email,
-            where='nombre_cliente=$nombre_cliente',
-            vars=locals())
-    except Exception as e:
-        print "Model update_clientes Error {}".format(e.args)
-        print "Model update_clientes Message {}".format(e.message)
-        return None
 
+def edit_clientes(id_cliente,nombre,apellido_paterno,apellido_materno,telefono,email):
+    try:
+        return db.update('clientes',id_cliente=id_cliente,
+nombre=nombre,
+apellido_paterno=apellido_paterno,
+apellido_materno=apellido_materno,
+telefono=telefono,
+email=email,
+                  where='id_cliente=$id_cliente',
+                  vars=locals())
+    except Exception as e:
+        print "Model update Error {}".format(e.args)
+        print "Model updateMessage {}".format(e.message)
+        return None

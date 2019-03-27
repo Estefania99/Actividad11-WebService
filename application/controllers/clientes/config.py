@@ -1,5 +1,22 @@
-import web # importa la libreria web.py
-import application.models.model_clientes as model_clientes # importa el modelo_clientes
+import web
+import hmac
+import application.models.model_clientes
+
+render = web.template.render('application/views/clientes/', base='master')
+model = application.models.model_clientes
+
+secret_key = "kuorra_key"
 
 
-render = web.template.render('application/views/clientes/', base='master') # configura la ubicacion de las vistas
+def hash_str(s):
+    return hmac.new(secret_key, s).hexdigest()
+
+
+def make_secure_val(s):
+    return "%s!%s" % (s, hash_str(s))
+
+
+def check_secure_val(h):
+    val = h.split('!')[0]
+    if h == make_secure_val(val):
+        return val
