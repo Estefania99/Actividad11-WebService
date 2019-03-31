@@ -1,5 +1,3 @@
-CREATE DATABASE ferreteria_egr;
-use ferreteria_egr;
 
 CREATE TABLE clientes( 
     id_cliente integer NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -15,9 +13,5 @@ INSERT INTO clientes(nombre,apellido_paterno,apellido_materno,telefono,email)VAL
 ('Estefania','Garcia','Resendiz', '5512369850','fannygarcia14@gmail.com'),
 ('Carlos','Dominguez','Omania', '7751235698','carlitosdom12@gmail.com');
 
-
-CREATE USER 'fan1'@'localhost' IDENTIFIED BY 'fan1.2019';
-GRANT ALL PRIVILEGES ON ferreteria_egr.* TO 'fan1'@'localhost';
-FLUSH PRIVILEGES;
 
 
